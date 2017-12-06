@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 ;
-var ReadonlyCollection = (function () {
+var ReadonlyCollection = /** @class */ (function () {
     function ReadonlyCollection() {
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -13,31 +13,31 @@ var ReadonlyCollection = (function () {
         return this.data[index];
     };
     ReadonlyCollection.prototype.toArray = function () {
-        return this.data;
+        return this.data.slice(); //return this.data.slice();
     };
     ReadonlyCollection.prototype.add = function () {
-        var args = [];
+        var o = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
+            o[_i] = arguments[_i];
         }
-        return new (ReadonlyCollection.bind.apply(ReadonlyCollection, [void 0].concat(this.data.concat(args))))();
+        return new (ReadonlyCollection.bind.apply(ReadonlyCollection, [void 0].concat(this.data, o)))();
     };
     ReadonlyCollection.prototype.remove = function () {
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
         }
-        var res = this.data.filter(function (element) {
+        var newData = this.data.filter(function (element) {
             return args.indexOf(element) === -1;
         });
-        return new (ReadonlyCollection.bind.apply(ReadonlyCollection, [void 0].concat(res)))();
+        return new (ReadonlyCollection.bind.apply(ReadonlyCollection, [void 0].concat(newData)))();
     };
     ReadonlyCollection.prototype.map = function (callback) {
         var _this = this;
-        var res = this.data.map(function (element, index) {
+        var newData = this.data.map(function (element, index) {
             return callback(element, index, _this);
         });
-        return new (ReadonlyCollection.bind.apply(ReadonlyCollection, [void 0].concat(res)))();
+        return new (ReadonlyCollection.bind.apply(ReadonlyCollection, [void 0].concat(newData)))();
     };
     Object.defineProperty(ReadonlyCollection.prototype, "length", {
         get: function () {
